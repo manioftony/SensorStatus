@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>web Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="/static/js/angular.min.js"></script>
+
+
+<script>
+    
+
+
+var app = angular.module('myApp', []);
+
+app.config(function($interpolateProvider){
+  $interpolateProvider.startSymbol('[[')
+  $interpolateProvider.endSymbol(']]')
+});
+
+app.controller('myCtrl', function($scope,$http,$timeout) {
+
+
+
+
+
+
+$scope.getData = function(){
+    $http.get("/bucket/api/v1/allstatus/").success(function(response){
+      $scope.sessiondata = response.sessiondata
+      $scope.mddata = response.masterdata
+    });
+  };
+
+
+
+
+ $scope.intervalFunction = function(){
+    $timeout(function() {
+      $scope.getData();
+      $scope.intervalFunction();
+    }, 10000)
+  };
+
+
+
+$scope.intervalFunction();
+
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+
+
+<div style="text-align:center;">
+<span>
+<i class="material-icons" style="font-size:100px;color:lightblue;">cloud</i>
+</span>
+<span>
+<i class="material-icons" style="font-size:100px;color:red;">cloud</i>
+</span>
+</div>
+
+
+
+</body>
+</html>
