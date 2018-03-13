@@ -28,6 +28,16 @@ def index():
 
 
 
+@app.route('/user/<username>')
+def logout(username):
+    
+    # import ipdb; ipdb.set_trace()
+    if int(username) <= 3:
+        return jsonify({'status':True})
+    else:
+        return jsonify({'status': False})
+
+
 
 
 
